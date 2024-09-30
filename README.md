@@ -21,7 +21,7 @@
     cd hive_cortex_elasticsearch
     docker compose up -d
 
-### TheHive Integration with WAZUH
+## TheHive Integration with WAZUH
 
 First of all, we install TheHive Python module:
 
@@ -51,7 +51,7 @@ Restart the manager to apply the changes:
 sudo systemctl restart wazuh-manager
 ```
 
-### MISP Integration with WAZUH
+## MISP Integration with WAZUH
 
 copy custom-misp.py file to WAZUH server ```/var/ossec/integration```
 
@@ -98,7 +98,7 @@ Lastly, we need to configure custom rules so that Wazuh can generate an alert if
 </group>
 ```
 
-### Configuring syslog on the Wazuh server
+## Configuring syslog on the Wazuh server
 
 The Wazuh server can collect logs via syslog from endpoints such as firewalls, switches, routers, and other devices that don’t support the installation of Wazuh agents. Perform the following steps on the Wazuh server to receive syslog messages on a specific port.
 
@@ -132,7 +132,7 @@ Restart the Wazuh manager to apply the changes:
 systemctl restart wazuh-manager
 ```
 
-### Reference URL
+## Reference URL
 https://wazuh.com/blog/using-wazuh-and-thehive-for-threat-protection-and-incident-response/
 https://wazuh.com/blog/integrating-wazuh-with-shuffle/?highlight=integrate%20misp
 
