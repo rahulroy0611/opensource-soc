@@ -23,6 +23,7 @@
 ### TheHive Integration with WAZUH
 
 First of all, we install TheHive Python module:
+
 ``` sudo /var/ossec/framework/python/bin/pip3 install thehive4py==1.8.1 ```
 
 1. copy custom-w2thive.py & copy-w2thive.sh toWAZUH server (/var/osses/integration/)
@@ -42,6 +43,7 @@ First of all, we install TheHive Python module:
 </ossec_config>
 ```
 Restart the manager to apply the changes:
+
 ```sudo systemctl restart wazuh-manager```
 
 
