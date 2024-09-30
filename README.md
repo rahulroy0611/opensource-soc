@@ -8,6 +8,7 @@
     cd ..
     cd kibana
     docker compose pull
+    docker compose up -d
 
 > replace public ip on **misp/.env**
 
