@@ -1,8 +1,5 @@
 # MISP Docker images
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/MISP/misp-docker/release-latest.yml)](https://github.com/orgs/MISP/packages)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/MISP/Docker)
-
 A production ready Docker MISP image (formerly hosted at https://github.com/ostefano/docker-misp, now deprecated) loosely based on CoolAcid and DSCO builds, with nearly all logic rewritten and verified for correctness and portability.
 
 Notable features:
