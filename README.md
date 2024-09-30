@@ -25,9 +25,11 @@
 
 First of all, we install TheHive Python module:
 
-``` sudo /var/ossec/framework/python/bin/pip3 install thehive4py==1.8.1 ```
+```
+sudo /var/ossec/framework/python/bin/pip3 install thehive4py==1.8.1
+```
 
-1. copy custom-w2thive.py & copy-w2thive.sh to WAZUH server (/var/ossec/integration/)
+1. copy custom-w2thive.py & copy-w2thive.sh to WAZUH server ```/var/ossec/integration/```
 2. mv custom-w2thive.sh custom-w2thive
 3. chmod +x custom-w2thive
 4. Modify /var/ossec/etc/ossec.conf
@@ -51,7 +53,7 @@ sudo systemctl restart wazuh-manager
 
 ### MISP Integration with WAZUH
 
-copy custom-misp.py file to WAZUH server (/var/ossec/integration)
+copy custom-misp.py file to WAZUH server ```/var/ossec/integration```
 
 ```
 mv custom-misp.py custom-misp
@@ -96,8 +98,42 @@ Lastly, we need to configure custom rules so that Wazuh can generate an alert if
 </group>
 ```
 
+### Configuring syslog on the Wazuh server
 
+The Wazuh server can collect logs via syslog from endpoints such as firewalls, switches, routers, and other devices that don’t support the installation of Wazuh agents. Perform the following steps on the Wazuh server to receive syslog messages on a specific port.
 
+1. Add the following configuration in between the ```<ossec_config>``` tags of the Wazuh server ```/var/ossec/etc/ossec.conf``` file to listen for syslog messages on TCP port 514:
 
+```
+<remote>
+  <connection>syslog</connection>
+  <port>514</port>
+  <protocol>tcp</protocol>
+  <allowed-ips>192.168.2.15/24</allowed-ips>
+  <local_ip>192.168.2.10</local_ip>
+</remote>
+```
+
+Where:
+- ```<connection>``` specifies the type of connection to accept. This value can either be secure or syslog.
+
+- ```<port>``` is the port used to listen for incoming syslog messages from endpoints. We use port 514 in the example above.
+
+- ```<protocol>``` is the protocol used to listen for incoming syslog messages from endpoints. The allowed values are either tcp or udp.
+
+- ```<allowed-ips>``` is the IP address or network range of the endpoints forwarding events to the Wazuh server. In the example above, we use 192.168.2.15/24.
+
+- ```<local_ip>``` is the IP address of the Wazuh server listening for incoming log messages. In the example above, we use 192.168.2.10.
+
+Refer to remote - local configuration documentation for more information on remote syslog options.
+
+Restart the Wazuh manager to apply the changes:
+```
+systemctl restart wazuh-manager
+```
+
+### Reference URL
+https://wazuh.com/blog/using-wazuh-and-thehive-for-threat-protection-and-incident-response/
+https://wazuh.com/blog/integrating-wazuh-with-shuffle/?highlight=integrate%20misp
 
 
