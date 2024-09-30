@@ -45,7 +45,9 @@ First of all, we install TheHive Python module:
 ```
 Restart the manager to apply the changes:
 
-```sudo systemctl restart wazuh-manager```
+```
+sudo systemctl restart wazuh-manager
+```
 
 ### MISP Integration with WAZUH
 
