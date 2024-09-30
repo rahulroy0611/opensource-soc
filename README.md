@@ -26,7 +26,7 @@ First of all, we install TheHive Python module:
 
 ``` sudo /var/ossec/framework/python/bin/pip3 install thehive4py==1.8.1 ```
 
-1. copy custom-w2thive.py & copy-w2thive.sh toWAZUH server (/var/osses/integration/)
+1. copy custom-w2thive.py & copy-w2thive.sh to WAZUH server (/var/ossec/integration/)
 2. mv custom-w2thive.sh custom-w2thive
 3. chmod +x custom-w2thive
 4. Modify /var/ossec/etc/ossec.conf
@@ -45,6 +45,54 @@ First of all, we install TheHive Python module:
 Restart the manager to apply the changes:
 
 ```sudo systemctl restart wazuh-manager```
+
+### MISP Integration with WAZUH
+
+copy custom-misp.py file to WAZUH server (/var/ossec/integration)
+
+```
+mv custom-misp.py custom-misp
+```
+
+Add Integration Block To Wazuh’s ossec.conf
+```
+<integration>
+    <name>custom-misp</name>
+    <group>sysmon_event1,sysmon_event3,sysmon_event6,sysmon_event7,sysmon_event23,sysmon_event24,sysmon_event25,sysmon_event_22,syscheck</group>
+    <alert_format>json</alert_format>
+</integration>
+```
+Must Restart the Wazuh Manager to apply the changes.
+```
+sudo systemctl restart wazuh-manager
+```
+
+#### Creating MISP custom rules
+Lastly, we need to configure custom rules so that Wazuh can generate an alert if MISP responds with a positive hit.
+```
+<group name="misp,">
+<rule id="100620" level="10">
+<field name="integration">misp</field>
+<match>misp</match>
+<description>MISP Events</description>
+<options>no_full_log</options>
+</rule>
+<rule id="100621" level="5">
+<if_sid>100620</if_sid>
+<field name="misp.error">\.+</field>
+<description>MISP - Error connecting to API</description>
+<options>no_full_log</options>
+<group>misp_error,</group>
+</rule>
+<rule id="100622" level="12">
+<field name="misp.category">\.+</field>
+<description>MISP - IoC found in Threat Intel - Category: $(misp.category), Attribute: $(misp.value)</description>
+<options>no_full_log</options>
+<group>misp_alert,</group>
+</rule>
+</group>
+```
+
 
 
 
