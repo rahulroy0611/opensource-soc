@@ -1,8 +1,8 @@
 ## Environment Setup
     git clone https://github.com/rahulroy0611/opensource-soc
     cd misp
-    docker compose pull
     mv template.env .env
+    docker compose pull
     cd ..
     cd hive_cortext_elasticsearch
     docker compose pull
