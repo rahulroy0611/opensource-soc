@@ -87,3 +87,4 @@ services:
 volumes:
   miniodata:
   cassandradata:
+  elasticsearchdata:
