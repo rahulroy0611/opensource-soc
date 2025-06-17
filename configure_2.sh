@@ -1,5 +1,7 @@
 #!/bin/bash
 cd misp
+PUBLICIP="$(curl ipconfig.me)"
+sed -i "s|BASE_URL='https://[^']*|BASE_URL='https://${PUBLICIP}|" .env
 docker compose up -d
 cd ..
 cd hive_cortex_elasticsearch
