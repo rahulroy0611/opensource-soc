@@ -1,6 +1,6 @@
 #!/bin/bash
 cd misp
-PUBLICIP="$(curl ipconfig.me)"
+PUBLICIP="$(curl https://ifconfig.me)"
 sed -i "s|BASE_URL=|BASE_URL=https://${PUBLICIP}|" .env
 docker compose up -d
 cd ..
